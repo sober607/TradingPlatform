@@ -1,0 +1,71 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    @model TradingPlatform.ViewModels.ItemViewModel
+
+    if (ViewBag.nullItem != null)
+    {
+        <h1>@ViewBag.nullItem</h1>
+    }
+    else
+    {
+        <div class="itemArea">
+
+            <table border="0">
+                <tr>
+                    <td><center><h2>@Model.ItemName</h2></center></td>
+                    <td rowspan="2">
+                        @{
+                            if (@Model.ItemDescription != null)
+                            {<h3>Description</h3><br />
+                                @Model.ItemDescription
+                            }
+
+
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><center><img src="@Model.ImgUrl" style="max-height: 500px; max-width: 300px" /></center></td>
+
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>@Model.SellerPrice, @Model.SellerCurrency</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        @{
+                            if (Model.BuyerPrice != 0 && Model.BuyerPrice != null)
+                            {
+                                <text> Model.BuyerPrice <b>Model.BuyerCurrency</b></text>
+                            }
+
+
+                        }
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <a asp-controller="Item" asp-action="ConfirmOrder" asp-route-itemId="@Model.ItemId">
+                            <button type="submit">Buy</button>
+                        </a>
+
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    }
+
+
+}

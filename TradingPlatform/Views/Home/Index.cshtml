@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-3 p-3 mb-2 bg-secondary text-white">
+        <center><h2 style="color:ivory">Categories</h2></center>
+        <ul class="nav flex-column" style="list-style: none">
+            @{
+                foreach (Category t in ViewBag.Categories as IEnumerable<Category>)
+                {
+                    <li style="margin-bottom: 5px"><a asp-controller="Items" asp-action="Category" asp-route-categoryId="@t.Id" style="color: ghostwhite ">@t.Name</a></li>
+                }
+
+            }
+
+
+        </ul>
+    </div>
+    <div class="col-9">
+        <div class="text-center">
+            <h1>Welcome to our online trading platform</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok1</div>
+            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok2</div>
+            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok3</div>
+        </div>
+    </div>
+</div>

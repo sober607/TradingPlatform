@@ -1,0 +1,31 @@
+﻿@using TradingPlatform.ViewModels
+@{
+    if (@ViewBag.CategoryName != null)
+    {
+
+        <center><h1>List of items of @ViewBag.CategoryName category</h1></center>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+
+            @foreach (ItemListViewModel t in (ViewBag.ItemsList as List<ItemListViewModel>))
+            {
+                <div style="width: 180px; height: 250px; margin: 10px; border: 1px solid black">
+                    <a asp-action="ViewItem" asp-controller="Item" asp-route-itemId="@t.ItemId">
+                        <div><center><img style="max-height: 200px; max-width: 175px" src="@t.ImgUrl" /></center></div>
+                        <div>@t.ItemName</div>
+                        <div>@t.Price @t.Currency</div>
+                    </a>
+                </div>
+            }
+
+
+
+        </div>
+    }
+    else
+    {
+        <center><h1>Category not found</h1></center>
+    }
+
+}
+
+

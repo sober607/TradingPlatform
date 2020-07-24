@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model TradingPlatform.ViewModels.ItemOrderModel
+
+@{
+
+    if (!Model.PossibleToShipAnotherCountry)
+    { <h2>Item is not available in your country</h2>}
+    else
+    {
+        <h2>Please confirm order</h2>
+        <br />
+        <form asp-controller="Item" asp-action="Buy" method="post">
+            <input type="hidden" asp-for="ItemId" value="@Model.ItemId" />
+            <table>
+
+                <tr>
+                    <td>Item name</td>
+                    <td>@Model.ItemName</td>
+
+                </tr>
+
+                <tr>
+                    <td>Quantity</td>
+                    <td><input asp-for="Qty" type="number" value="1" /></td>
+                </tr>
+
+                <tr>
+                    <td>Seller name</td>
+                    <td>@Model.SellerName</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td> <button type="submit">Confirm order</button> </td>
+                </tr>
+
+
+            </table>
+            <input type="hidden" name="BuyerName" value="@User.Identity.Name" />
+            <input type="hidden" name="Status" value="New order" />
+        </form>
+    }
+
+
+
+}

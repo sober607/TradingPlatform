@@ -1,0 +1,26 @@
+﻿@model TradingPlatform.ViewModels.LoginViewModel
+@{
+}
+
+<h1>Enter your account</h1>
+<form method="post" asp-controller="Account" asp-action="Login" asp-route-return-url="@Model.ReturnUrl">
+    <div asp-validation-summary="All"></div>
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password">
+        </span>
+
+    </div>
+
+    <div>
+        <input type="submit" value="Enter" />
+    </div>
+
+</form>
