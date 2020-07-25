@@ -57,7 +57,7 @@ namespace TradingPlatform.Infrastructure.Services.Implementations
             using (SmtpClient client = new SmtpClient())
             {
                 client.ServerCertificateValidationCallback = (s, c, ce, e) => true;
-                await client.ConnectAsync(_options.Notification.Email.SmtpServer, 465, true);
+                await client.ConnectAsync(_options.Notification.Email.SmtpServer, _options.Notification.Email.SmtpPort, true);
                 await client.AuthenticateAsync(_options.Notification.Email.AuthenticationEmail, _options.Notification.Email.AuthenticationEmailPassword);
                 await client.SendAsync(email);
 

@@ -31,6 +31,8 @@ namespace TradingPlatform.Infrastructure.Configuration
     {
         public string SmtpServer { get; set; }
 
+        public int SmtpPort { get; set; }
+
         public string SenderEmail { get; set; }
 
         public string AuthenticationEmail { get; set; }
