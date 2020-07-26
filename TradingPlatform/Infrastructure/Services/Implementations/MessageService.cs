@@ -50,7 +50,7 @@ namespace TradingPlatform.Infrastructure.Services.Implementations
 
             // add email body
             BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.TextBody = message;
+            bodyBuilder.HtmlBody = message;
             email.Body = bodyBuilder.ToMessageBody();
 
             // send message

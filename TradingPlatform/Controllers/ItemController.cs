@@ -119,7 +119,7 @@ namespace TradingPlatform.Controllers
                         SellerCurrency = item.User.Country.Currency.ShortName,
 
                         BuyerCurrency = buyerCurrency,
-                        BuyerPrice = item.Price * item.User.Country.Currency.Rate / buyerCurrencyRate,
+                        BuyerPrice = Decimal.Round(item.Price / item.User.Country.Currency.Rate * buyerCurrencyRate, 2),
                         ImgUrl = imgUrl
                     };
 
