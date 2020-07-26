@@ -30,12 +30,12 @@
                 <h2 style="color:darkslategray">Platform chat</h2>
 
                 <div class="msg" style="text-align:left; height: 200px; overflow-y: auto; display: flex; padding: 10px">
-                    <div id="msgs"></div>
+                    <div id="messages"></div>
                 </div>
 
                 <div style="margin-bottom: 4px;">
-                    <input type="text" style="max-width:unset;width:90%;max-width:90%" id="MessageField" placeholder="Type message and press Enter/Button" />
-                    <input id="SendButton" type="button" value="Send" />
+                    <input type="text" style="max-width:unset;width:90%;max-width:90%" id="messageField" placeholder="Type message and press Enter/Button" />
+                    <input id="sendButton" type="button" value="Send" />
                 </div>
 
                 @section Scripts {
@@ -46,33 +46,28 @@
         var protocol = location.protocol === "https:" ? "wss:" : "ws:";
         var wsUri = protocol + "//" + window.location.host;
         var socket = new WebSocket(wsUri);
-        socket.onopen = e => {
-            console.log("socket opened", e);
-        };
-
-        socket.onclose = function (e) {
-            console.log("socket closed", e);
-        };
 
         socket.onmessage = function (e) {
-            console.log(e);
-            $('#msgs').append(e.data + '<br />');
+            $('#messages').append(e.data + '<br />');
         };
 
-        socket.onerror = function (e) {
-            console.error(e.data);
-        };
+        $('#sendButton').click(function () {
+            var message = userName + ": " + $('#messageField').val();
+            socket.send(message);
+            $('#messageField').val('');
+        }
+        );
 
-        $('#MessageField').keypress(function (e) {
+        $('#messageField').keypress(function (e) {
             if (e.which != 13) {
                 return;
             }
 
             e.preventDefault();
 
-            var message = userName + ": " + $('#MessageField').val();
+            var message = userName + ": " + $('#messageField').val();
             socket.send(message);
-            $('#MessageField').val('');
+            $('#messageField').val('');
         });
     });
                     </script>
