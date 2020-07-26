@@ -18,5 +18,7 @@ namespace TradingPlatform.Repositories
         public IEnumerable<ItemListViewModel> GetItemsListForApi(int? categoryId);
 
         public Item GetItem(int itemId);
+
+        public List<ItemListViewModel> GetRandomItems(int qty);
     }
 }

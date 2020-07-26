@@ -109,5 +109,29 @@ namespace TradingPlatform.Repositories
             }
 
         }
+
+        public List<ItemListViewModel> GetRandomItems(int qty)
+        {
+            int itemsQty = _context.Items.Count();
+            List<ItemListViewModel> itemsList = new List<ItemListViewModel>();
+
+            if (itemsQty <1)
+            {
+                return null;
+            }
+            else if (itemsQty < qty)
+            {
+                qty = itemsQty;
+            }
+
+            var items = _context.Items.OrderBy(r => Guid.NewGuid()).Take(qty).ToList();
+
+            foreach(var t in items)
+            {
+                var temporaryItemInItemsListViewModel = new ItemListViewModel() { ItemName = t.Name, Price = t.Price, Currency = t.User.Country.Currency.ShortName, ImgUrl = t.ImgUrl };
+                itemsList.Add(temporaryItemInItemsListViewModel);
+            }
+            return itemsList;
+        }
     }
 }

@@ -77,9 +77,7 @@ namespace TradingPlatform
 
             services.AddSingleton<IMessageService, MessageService>();
 
-            
-
-            //services.AddHostedService<SyncCurrencyRateBackgroundService>(); // commented due to API requests limitations
+            services.AddHostedService<SyncCurrencyRateBackgroundService>(); // commented due to API requests qty limitations
 
             var servicesConfiguration = Configuration.GetSection("TradingPlatform");
             services.Configure<TradingPlatformConfiguration>(servicesConfiguration);
