@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingPlatform", "TradingPlatform\TradingPlatform.csproj", "{C4D75ACD-79A6-400D-8AE2-9642C8FA5FE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TradingPlatform", "TradingPlatform\TradingPlatform.csproj", "{C4D75ACD-79A6-400D-8AE2-9642C8FA5FE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTestsTradingPlatform", "XUnitTestsTradingPlatform\XUnitTestsTradingPlatform.csproj", "{85358C29-A954-4E75-8CB9-2069B7791667}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C4D75ACD-79A6-400D-8AE2-9642C8FA5FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D75ACD-79A6-400D-8AE2-9642C8FA5FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D75ACD-79A6-400D-8AE2-9642C8FA5FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85358C29-A954-4E75-8CB9-2069B7791667}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85358C29-A954-4E75-8CB9-2069B7791667}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85358C29-A954-4E75-8CB9-2069B7791667}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85358C29-A954-4E75-8CB9-2069B7791667}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
