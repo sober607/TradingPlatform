@@ -77,21 +77,30 @@
             </center>
         </div>
 
-        <div class="row">
-            @{
-                foreach (var t in Model)
-                {
-                        <div style="width: 130px; height: 200px; margin: 10px; border: 1px solid grey">
-                            <a asp-action="ViewItem" asp-controller="Item" asp-route-itemId="@t.ItemId">
-                                <div><center><img style="max-height: 155px; max-width: 175px" src="@t.ImgUrl" /></center></div>
-                                <div>@t.ItemName</div>
-                                <div>@t.Price @t.Currency</div>
-                            </a>
-                        </div>
-                }
+        <div class="row randomItems" style="        
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        overflow: auto;
+        ">
+
+    @{
+        foreach (var t in Model)
+        {
+
+            <div style="width: 175px; height: 200px; margin: 10px; border: 1px solid grey; box-shadow: 0 0 2px black">
+                <a asp-action="ViewItem" asp-controller="Item" asp-route-itemId="@t.ItemId">
+                    <div><center><img style="max-height: 155px; max-width: 173px" src="@t.ImgUrl" /></center></div>
+                    <div>@t.ItemName</div>
+                    <div>@t.Price @t.Currency</div>
+                </a>
+            </div>
+
+        }
 
 
-            }
+    }
 
 
         </div>
