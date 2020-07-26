@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TradingPlatform.Infrastructure.Services.Implementations;
+using TradingPlatform.Infrastructure.Services.Interfaces;
 using TradingPlatform.Models;
 using TradingPlatform.Repositories;
 
@@ -17,23 +20,40 @@ namespace TradingPlatform.Controllers
         private ICategoryRepository _categoryRepository;
 
 
+
+
         public HomeController(ILogger<HomeController> logger, ICategoryRepository categoryRepository)
         {
             _logger = logger;
             _categoryRepository = categoryRepository;
+            
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string username)
         {
+            
             ViewBag.Categories = _categoryRepository.GetAllCategories();
 
-            return View();
+            if (username == null)
+            {
+            if (User.Identity.IsAuthenticated)
+            {
+                username = User.Identity.Name;
+            }
+            else
+            {
+                username = Guid.NewGuid().ToString();
+            }
+            }
+
+            ViewBag.UserName = username;
+
+                return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

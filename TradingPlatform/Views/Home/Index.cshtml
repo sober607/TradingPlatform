@@ -1,7 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var usrNm = ViewBag.UserName as string;
 }
 
+    
 <div class="row">
     <div class="col-3 p-3 mb-2 bg-secondary text-white">
         <center><h2 style="color:ivory">Categories</h2></center>
@@ -22,10 +24,67 @@
             <h1>Welcome to our online trading platform</h1>
         </div>
 
-        <div class="row">
-            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok1</div>
-            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok2</div>
-            <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok3</div>
+
+        <div class="chat" style="border: 1px solid black; box-shadow: 0 0 3px 1px rgba(0,0,0,0.5); margin: 5px; background-color:gainsboro">
+            <center>
+                <h2 style="color:darkslategray">Platform chat</h2>
+
+                <div class="msg" style="text-align:left; height: 200px; overflow-y: auto; display: flex; padding: 10px">
+                    <div id="msgs"></div>
+                </div>
+
+                <div style="margin-bottom: 4px;">
+                    <input type="text" style="max-width:unset;width:90%;max-width:90%" id="MessageField" placeholder="Type message and press Enter/Button" />
+                    <input id="SendButton" type="button" value="Send" />
+                </div>
+
+                @section Scripts {
+                    <script>
+    $(function () {
+        var userName = '@usrNm';
+
+        var protocol = location.protocol === "https:" ? "wss:" : "ws:";
+        var wsUri = protocol + "//" + window.location.host;
+        var socket = new WebSocket(wsUri);
+        socket.onopen = e => {
+            console.log("socket opened", e);
+        };
+
+        socket.onclose = function (e) {
+            console.log("socket closed", e);
+        };
+
+        socket.onmessage = function (e) {
+            console.log(e);
+            $('#msgs').append(e.data + '<br />');
+        };
+
+        socket.onerror = function (e) {
+            console.error(e.data);
+        };
+
+        $('#MessageField').keypress(function (e) {
+            if (e.which != 13) {
+                return;
+            }
+
+            e.preventDefault();
+
+            var message = userName + ": " + $('#MessageField').val();
+            socket.send(message);
+            $('#MessageField').val('');
+        });
+    });
+                    </script>
+                }
+
+            </center>
         </div>
-    </div>
+
+                    <div class="row">
+                        <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok1</div>
+                        <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok2</div>
+                        <div class="col-4" style="width: 50px; height: 50px; border: 1px solid black">blok3</div>
+                    </div>
+                </div>
 </div>

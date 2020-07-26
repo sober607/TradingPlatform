@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,9 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.Debug;
 using TradingPlatform.Infrastructure.BackgroundServices.Implementations;
 using TradingPlatform.Infrastructure.BackgroundServices.Interfaces;
 using TradingPlatform.Infrastructure.Configuration;
+using TradingPlatform.Infrastructure.Middlewares;
 using TradingPlatform.Infrastructure.Services.Implementations;
 using TradingPlatform.Infrastructure.Services.Interfaces;
 using TradingPlatform.Models;
@@ -32,6 +37,7 @@ namespace TradingPlatform
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<TradingPlatformContext>(builder => builder.UseSqlServer(Configuration.GetConnectionString("TradingPlatformDBConnectionAzureSQL"))
             .UseLazyLoadingProxies());
 
@@ -71,6 +77,8 @@ namespace TradingPlatform
 
             services.AddSingleton<IMessageService, MessageService>();
 
+            
+
             //services.AddHostedService<SyncCurrencyRateBackgroundService>(); // commented due to API requests limitations
 
             var servicesConfiguration = Configuration.GetSection("TradingPlatform");
@@ -91,12 +99,23 @@ namespace TradingPlatform
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+            app.UseFileServer();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+                ReceiveBufferSize = 4 * 1024
+            };
+            app.UseWebSockets(webSocketOptions);
+
+            app.UseMiddleware<ChatMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
