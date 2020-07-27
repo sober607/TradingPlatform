@@ -17,11 +17,14 @@ namespace TradingPlatform.Repositories
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public SqlItemRepository(IFileService fileService, TradingPlatformContext context, IHttpContextAccessor httpContextAccessor)
+        private IUserRepository _userRepository { get; set; }
+
+        public SqlItemRepository(IFileService fileService, TradingPlatformContext context, IHttpContextAccessor httpContextAccessor, IUserRepository userRepository)
         {
             _fileService = fileService;
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _userRepository = userRepository;
         }
 
         public async Task AddItem(ItemAddViewModel item)
@@ -128,10 +131,22 @@ namespace TradingPlatform.Repositories
 
             foreach(var t in items)
             {
-                var temporaryItemInItemsListViewModel = new ItemListViewModel() { ItemName = t.Name, Price = t.Price, Currency = t.User.Country.Currency.ShortName, ImgUrl = t.ImgUrl };
+                var temporaryItemInItemsListViewModel = new ItemListViewModel() { ItemName = t.Name, Price = t.Price, Currency = t.User.Country.Currency.ShortName, ImgUrl = t.ImgUrl, ItemId = t.Id };
                 itemsList.Add(temporaryItemInItemsListViewModel);
             }
             return itemsList;
+        }
+
+        public IEnumerable<Item> GetUserItems(string username)
+        {
+            var user = _userRepository.FindUserByName(username);
+            var userItems = user.Items;
+
+            if (user!=null && userItems!=null)
+            {
+                return userItems;
+            }
+            return null;
         }
     }
 }

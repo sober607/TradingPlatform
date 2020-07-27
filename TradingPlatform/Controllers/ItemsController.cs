@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using TradingPlatform.Repositories;
@@ -50,6 +51,41 @@ namespace TradingPlatform.Controllers
             }
 
             return View();
+        }
+
+        [Authorize]
+        public IActionResult MyItems()
+        {
+            var userName = User.Identity.Name;
+            var itemsList = _itemRepository.GetUserItems(userName);
+            List<ItemListViewModel> model = new List<ItemListViewModel>();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                if (itemsList != null && itemsList.Count() > 0)
+                {
+                   foreach (var item in itemsList.ToList())
+                    {
+                        string noImg = @"/images/no-image.png";
+
+                        if (item.ImgUrl == null)
+                        {
+                            item.ImgUrl = noImg;
+                        }
+
+                        model.Add(new ItemListViewModel { ItemId = item.Id, ItemName = item.Name, Price = item.Price, Currency = item.User.Country.Currency.ShortName, ImgUrl = item.ImgUrl });
+                    }
+                }
+                else
+                {
+                    model = null;
+                }
+            }
+                
+
+            
+
+            return View(model);
         }
     }
 }

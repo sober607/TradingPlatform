@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+@model BuyerOrderListViewModel; 
+
+
+    <h2>List of your orders</h2>
+    <br/>
+
+    <div class="ordersList">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col"><label asp-for="OrderDate"></label></th>
+                    <th scope="col"><label asp-for="ItemName"></label></th>
+                    <th scope="col"><label asp-for="OrderId"></label></th>
+                    <th scope="col"><label asp-for="Price"></label></th>
+                    <th scope="col"><label asp-for="SellerName"></label></th>
+                    <th scope="col"><label asp-for="SellerEmail"></label></th>
+                    <th scope="col"><label asp-for="TrackingNumber"></label></th>
+                    <th scope="col"><label asp-for="Status"></label></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (ViewBag.OrdersList != null )
+                {
+
+                @foreach (var t in ViewBag.OrdersList as List<BuyerOrderListViewModel>)
+                {
+                    <tr>
+                        <th scope="row">@t.OrderDate</th>
+                        <td>@t.ItemName</td>
+                        <td>@t.OrderId</td>
+                        <td>@t.Price @t.CurrencyName </td>
+                        <td>@t.SellerName</td>
+                        <td>@t.SellerEmail</td>
+                        <td>
+                            @if (@t.TrackingNumber != null)
+                            {@t.TrackingNumber}
+                    </td>
+                    <td>@t.Status</td>
+                </tr>
+            }
+
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+}

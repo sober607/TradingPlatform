@@ -20,5 +20,7 @@ namespace TradingPlatform.Repositories
         public Item GetItem(int itemId);
 
         public List<ItemListViewModel> GetRandomItems(int qty);
+
+        public IEnumerable<Item> GetUserItems(string username);
     }
 }

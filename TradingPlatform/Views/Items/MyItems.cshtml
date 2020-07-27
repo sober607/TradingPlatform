@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    if (@Model != null)
+    {
+
+        <center><h1>List your items</h1></center>
+        <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+
+            @foreach (ItemListViewModel t in (@Model as List<ItemListViewModel>))
+            {
+                <div style="width: 180px; height: 250px; margin: 10px; margin: 10px; border: 1px solid grey; box-shadow: 0 0 2px black">
+                    <a asp-action="ViewItem" asp-controller="Item" asp-route-itemId="@t.ItemId">
+                        <div><center><img style="max-height: 200px; max-width: 175px" src="@t.ImgUrl" /></center></div>
+                        <div>@t.ItemName</div>
+                        <div>@t.Price @t.Currency</div>
+                    </a>
+                </div>
+            }
+
+        </div>
+    }
+    else if (@Model == null)
+    {
+        <center><h1>No items</h1></center>
+    }
+    else
+    {
+        <center><h1>Error</h1></center>
+    }
+
+}

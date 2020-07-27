@@ -44,5 +44,18 @@ namespace TradingPlatform.Repositories
 
             return false;
         }
+
+        public List<Order> GetUsersOrdersList(User user)
+        {
+            if (user != null)
+            {
+                var ordersList = _context.Orders.Where(t => t.User == user).ToList();
+                return ordersList;
+            }
+            else
+            {
+                return null;
+            };
+        }
     }
 }
