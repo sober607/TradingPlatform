@@ -10,12 +10,12 @@
     }
     else
     {
-        <div class="itemArea">
+        <div class="itemArea" style="border: 1px solid grey; box-shadow: 0 0 2px black;">
 
-            <table border="0">
+            <table class="table table-borderless">
                 <tr>
-                    <td><center><h2>@Model.ItemName</h2></center></td>
-                    <td rowspan="2">
+                    <td style="width:510px"><center><h2>@Model.ItemName</h2></center></td>
+                    <td style="width:auto" rowspan="2">
                         @{
                             if (@Model.ItemDescription != null)
                             {<h3>Description</h3><br />

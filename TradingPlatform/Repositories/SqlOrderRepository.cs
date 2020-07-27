@@ -45,7 +45,7 @@ namespace TradingPlatform.Repositories
             return false;
         }
 
-        public List<Order> GetUsersOrdersList(User user)
+        public List<Order> GetUsersPurchasesList(User user)
         {
             if (user != null)
             {

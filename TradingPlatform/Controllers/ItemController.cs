@@ -162,8 +162,11 @@ namespace TradingPlatform.Controllers
         public async Task<IActionResult> Buy(ItemOrderModel model)
         {
             var item = _repository.GetItem(model.ItemId);
+            var buyerCurrencyRate = _userRepository.UserCurrencyRate(User.Identity.Name);
 
-            if (_orderRepository.PlaceOrder(model.ItemId, item.Price, model.BuyerName, model.Qty, model.Status))
+            var buyerPrice = Decimal.Round(item.Price / item.User.Country.Currency.Rate * buyerCurrencyRate, 2);
+
+            if (_orderRepository.PlaceOrder(model.ItemId, buyerPrice, model.BuyerName, model.Qty, model.Status))
             {
                 var buyer = _userRepository.FindUserByName(model.BuyerName);
                 var MessageForSeller = $"Buyer {buyer.Name} with email {buyer.Email} has purchased item {item.Name}. Please contact him";

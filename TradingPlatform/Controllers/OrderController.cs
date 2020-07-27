@@ -30,7 +30,7 @@ namespace TradingPlatform.Controllers
             if (User.Identity.IsAuthenticated)
             {    
                 var user = _usersRepository.FindUserByName(userName);
-                var ordersList = _ordersRepository.GetUsersOrdersList(user);
+                var ordersList = _ordersRepository.GetUsersPurchasesList(user);
                 var tempOrdersList = (user != null && ordersList != null) ? ordersList : null;
                 
 
@@ -59,5 +59,18 @@ namespace TradingPlatform.Controllers
 
                 return View();
         }
+
+        //[Authorize]
+        //public IActionResult CustomerOrders()
+        //{
+        //    var user = User.Identity.Name;
+        //    var listOFBuyersPurvchased items = ;
+        //    List<SellerItemsOrderListViewModel> orders = new List<SellerItemsOrderListViewModel>;
+
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+
+        //    }
+        //}
     }
 }

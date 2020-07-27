@@ -9,11 +9,11 @@
     { <h2>Item is not available in your country</h2>}
     else
     {
-        <h2>Please confirm order</h2>
+        <h2><center>Please confirm order</center></h2>
         <br />
         <form asp-controller="Item" asp-action="Buy" method="post">
             <input type="hidden" asp-for="ItemId" value="@Model.ItemId" />
-            <table>
+            <table class="table table-borderless" style="padding: 10px">
 
                 <tr>
                     <td>Item name</td>

@@ -10,6 +10,8 @@ namespace TradingPlatform.Repositories
     {
         public bool PlaceOrder(int itemId, decimal Price, string buyerName, int qty, string status);
 
-        public List<Order> GetUsersOrdersList(User user);
+        public List<Order> GetUsersPurchasesList(User user); // To see what purchased exact user
+
+        /*public List<Order> Get*/ // To see list of orders to sellers items.
     }
 }

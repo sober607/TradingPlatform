@@ -8,7 +8,7 @@
 
             @foreach (ItemListViewModel t in (ViewBag.ItemsList as List<ItemListViewModel>))
             {
-                <div style="width: 180px; height: 250px; margin: 10px; border: 1px solid black">
+                <div style="width: 180px; height: 250px; margin: 10px; border: 1px solid grey; box-shadow: 0 0 2px black">
                     <a asp-action="ViewItem" asp-controller="Item" asp-route-itemId="@t.ItemId">
                         <div><center><img style="max-height: 200px; max-width: 175px" src="@t.ImgUrl" /></center></div>
                         <div>@t.ItemName</div>
